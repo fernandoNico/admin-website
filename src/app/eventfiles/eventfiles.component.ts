@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MyfilesService } from 'app/myfiles.service';
 import { UploadFile } from 'app/eventfiles/file';
 import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'eventfiles',
@@ -11,10 +12,11 @@ import { Observable } from 'rxjs/Observable';
 export class EventfilesComponent implements OnInit {
   uploads: Observable<UploadFile[]>;
 
-  constructor(private upSvc: MyfilesService) { }
+  constructor(private upSvc: MyfilesService,   private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-         this.uploads = this.upSvc.getUploads();
+    var  eventId: number = this.activatedRoute.snapshot.params['id'];
+         this.uploads = this.upSvc.getUploads(eventId.toString());
         //  this.uploads.subscribe(() => this.showSpinner = false);
   }
 

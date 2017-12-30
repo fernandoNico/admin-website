@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 
 import { Event } from '../ui/events-page/event.model';
-import { log } from 'util';
+
 
 @Component({
   selector: 'edit-event',

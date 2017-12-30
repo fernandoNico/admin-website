@@ -3,7 +3,9 @@ export class UploadFile {
     file: File;
     name: string;
     url: string;
+    id: number;
     progress: number;
+    
     createdAt: Date = new Date();
   
     constructor(file: File) {

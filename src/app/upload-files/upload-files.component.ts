@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-
-
 import { MyfilesService } from 'app/myfiles.service';
 import { UploadFile } from 'app/eventfiles/file';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'upload-files',
   templateUrl: './upload-files.component.html',
   styleUrls: ['./upload-files.component.scss']
 })
-export class UploadFilesComponent {
+export class UploadFilesComponent implements OnInit  {
 
+myid:number;
+  ngOnInit() {
+ this.myid = this.activatedRoute.snapshot.params['id'];
+
+
+  }
   selectedFiles: FileList | null;
   currentUpload: UploadFile;
-
-  constructor(private upSvc: MyfilesService) { }
+ 
+  constructor(private upSvc: MyfilesService,
+    private activatedRoute: ActivatedRoute, ) { }
 
   detectFiles($event: Event) {
       this.selectedFiles = ($event.target as HTMLInputElement).files;
@@ -25,7 +30,7 @@ export class UploadFilesComponent {
     const file = this.selectedFiles;
     if (file && file.length === 1) {
       this.currentUpload = new UploadFile(file.item(0));
-      this.upSvc.pushUpload(this.currentUpload);
+      this.upSvc.pushUpload(this.currentUpload, this.myid);
     } else {
       console.error('No file found!');
     }
@@ -40,7 +45,7 @@ export class UploadFilesComponent {
 
     Array.from(files).forEach((file) => {
       this.currentUpload = new UploadFile(file);
-      this.upSvc.pushUpload(this.currentUpload);
+      this.upSvc.pushUpload(this.currentUpload, this.myid);
     });
   }
 }

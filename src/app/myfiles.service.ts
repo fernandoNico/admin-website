@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-// import { Upload } from './upload';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import { UploadFile } from 'app/eventfiles/file';
+import { ActivatedRoute } from '@angular/router/src/router_state';
 
 @Injectable()
 export class MyfilesService {
@@ -11,10 +11,12 @@ export class MyfilesService {
   uploadsRef: AngularFireList<UploadFile>;
   uploads: Observable<UploadFile[]>;
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase ) { }
 
-  getUploads() {
-    this.uploads = this.db.list(this.basePath).snapshotChanges().map((actions) => {
+// id="187";
+  getUploads(id: string) {
+    
+    this.uploads = this.db.list(this.basePath, ref=> ref.orderByChild('id').equalTo(id)).snapshotChanges().map((actions) => {
       return actions.map((a) => {
         const data = a.payload.val();
         const $key = a.payload.key;
@@ -33,7 +35,7 @@ export class MyfilesService {
   }
 
   // Executes the file uploading to firebase https://firebase.google.com/docs/storage/web/upload-files
-  pushUpload(upload: UploadFile) {
+  pushUpload(upload: UploadFile, eventid: number) {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
 
@@ -52,6 +54,7 @@ export class MyfilesService {
         if (uploadTask.snapshot.downloadURL) {
           upload.url = uploadTask.snapshot.downloadURL;
           upload.name = upload.file.name;
+          upload.id = eventid;
           this.saveFileData(upload);
           return;
         } else {
