@@ -1,0 +1,20 @@
+<!-- <p>
+  event-videos works!
+</p> -->
+
+
+<div *ngFor="let a of videolist">
+  
+  <div class="card" >
+      <div class="card-body">
+        <h5 class="card-title">Video Id: {{a.string}}</h5>
+        <iframe  [src]="getEmbedUrl(a)" frameborder="0" 
+        gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="card-footer text-muted">
+         <button type="button" class="btn btn-danger btn-sm"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+        </div>
+    </div>
+    <br>
+
+</div>

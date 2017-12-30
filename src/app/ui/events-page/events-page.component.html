@@ -1,0 +1,41 @@
+<div class="container">
+  <br>
+   <div class="row">
+           <br>
+           <div class="col">
+                   <h1>Upcoming Events</h1>
+           </div>
+           <div class="w-100"></div>
+           <div class="col">
+                   <form class="form-inline my-2 my-lg-3">
+                           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                           <button class="btn btn-warning my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                   </form>
+           </div>
+
+
+   </div>
+<hr>
+<br>
+<div class="card-columns">
+   <div *ngFor="let event of events ">
+           <div class="card" >
+                   <img class="card-img-top" src="https://cdn.pixabay.com/photo/2017/03/24/07/01/computer-2170392_1280.jpg" alt="Card image cap">
+                   <div class="card-body">
+                   <h4 class="card-title">{{event.eventTitle}}</h4> <small>{{event.eventStartDate | date:'medium' }}  </small>
+                   <br>
+                   <small>{{event.eventStreet}}</small>
+                   <h6><span class="badge badge-info">{{event.eventPostcode}}</span></h6>
+                   
+                   </div>
+                   <div class="card-footer ">
+                           <button  class="btn btn-warning btn-sm" [routerLink]="['/event', event.EventId]"><i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>
+                           <button  class="btn btn-danger btn-sm" (click)="deleteEvent(event)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete </button>
+                   </div>
+           </div>      
+   </div>
+</div>
+</div>
+<br>
+<br>
+

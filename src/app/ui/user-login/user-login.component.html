@@ -1,0 +1,52 @@
+<br>    
+<div id="wrapper">
+  
+    <div *ngIf="!auth.currentUser; else alreadyLoggedIn">
+
+        <div class="row justify-content">
+          <div class="col col-lg-6">
+            <user-form></user-form>
+          </div>
+            <br>
+            <div class="col-md-auto">
+            <h1>Social Login</h1>
+              <button  type="button" class="btn btn-danger btn-block" (click)="signInWithGoogle()" >
+                <i class="fa fa-google-plus fa-lg"></i> Connect Google
+              </button>
+              <br>
+              <button  type="button" class="btn btn-warning btn-block" (click)="signInWithGithub()"  >
+                <i class="fa fa-github fa-lg"></i> Connect GitHub
+              </button>
+              <br>
+              <button  type="button" class="btn btn-primary btn-block" (click)="signInWithFacebook()"  >
+                <i class="fa fa-facebook fa-lg"></i> Connect Facebook
+              </button>
+              <br>
+              <button  type="button" class="btn btn-info btn-block" (click)="signInWithTwitter()"  >
+                <i class="fa fa-twitter fa-lg"></i> Connect Twitter
+              </button>
+              <hr>
+              <!-- <h3>Anonymous Login</h3>
+
+              <button  type="button" class="btn btn-secondary"(click)="signInAnonymously()" >
+                  <i class="fa fa-user-secret fa-lg"></i> Connect Anonymously
+              </button> -->
+              <hr>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <ng-template #alreadyLoggedIn>
+      <p class="text-success">
+        Already logged in!
+      </p>
+    </ng-template>
+</div>
+
+
+
+
+

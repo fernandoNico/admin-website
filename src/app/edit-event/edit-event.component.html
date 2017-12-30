@@ -1,0 +1,275 @@
+
+<div  class="container-fluid text-center">
+  <div id="wrapper" >
+
+        <ngb-alert class="text-center" *ngIf="!staticAlertClosed" type="info" (close)="staticAlertClosed = true">Event created Sucessfully!</ngb-alert>
+        <ngb-alert class="text-center" *ngIf="!staticAlertClosed1" type="success" (close)="staticAlertClosed1 = true">Event Edited Sucessfully!</ngb-alert>
+
+        <ngb-alert class="text-center" *ngIf="!NewsubEvent" type="info" (close)="NewsubEvent = true">SubEvent created Sucessfully!</ngb-alert>
+        <ngb-alert class="text-center" *ngIf="!EditsubEvent" type="success" (close)="EditsubEvent = true">SubEvent Edited Sucessfully!</ngb-alert>
+        <ngb-alert class="text-center" *ngIf="!DeletesubEvent" type="danger" (close)="DeletesubEvent = true">SubEvent Deleted Sucessfully!</ngb-alert>
+    <h1>Event Management</h1>
+    <br>
+
+
+<ngb-tabset >
+
+<!-- Event Details Tab *****************************************************************************************************-->
+<ngb-tab>
+  <ng-template ngbTabTitle><b>Event Details</b> </ng-template>
+    <ng-template ngbTabContent>
+    <br>
+    <form *ngIf="eventInfo">
+          <div class="form-row">
+                 
+                <div class="form-group col-md-12">                            
+                      <h2>{{eventInfo.eventTitle}}</h2>
+                      <label for="inputEmail4" class="col-form-label">Event Title</label>
+                      <input type="text" class="form-control" name="username" value="{{eventInfo.eventTitle}}" 
+                      [(ngModel)]="eventInfo.eventTitle"  id="inputEmail4" placeholder="Enter Event/Conference title" 
+                      required >
+                </div>
+
+              <div class="form-group col-md-8" *ngIf="selectnewAddress">
+                      <label for="exampleFormControlSelect1">Select Address</label>
+                      <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="eventInfo.eventStreet" name="street" >
+                          <option *ngFor="let address of AddressList.addresses"  value="{{address}} ">{{address}}</option>
+                        </select>
+              </div>
+              
+              <div class="form-group col-md-8" *ngIf="!selectnewAddress">
+                      <label for="inputEmail4" class="col-form-label">Street Number</label>
+                      <input type="text" class="form-control" name="street"   id="inputEmail4" placeholder="Enter Postcode" [(ngModel)]="eventInfo.eventStreet" required >
+              </div>
+          
+              <div class="form-group col-md-4">
+                      <label for="inputEmail4" class="col-form-label">Postcode</label>
+                      <input type="text" class="form-control" name="postcode"   id="inputEmail4" placeholder="Enter Postcode" [(ngModel)]="eventInfo.eventPostcode" required >
+                      <br>
+              </div>
+
+                
+
+              <div class="form-group col-md-12">
+                      <button type="submit" name="submit"  (click)="findnewAddress(eventInfo.eventPostcode)" class="btn btn-primary "><i class="fa fa-search" aria-hidden="true"></i> Find New Address</button>
+              </div>
+
+              <div class="w-100"></div>
+
+              <div class="form-group col-md-12" *ngIf="AddressList">
+                        <div class="card">
+                            <div class="card-body">
+                                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                  </agm-map>
+                            </div>
+                          </div>
+              </div>
+
+              <div class="w-100"></div><br>
+
+              <div class="form-group col-md-6">
+                    <h5>Starts:</h5>
+                      <form class="form-inline">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" placeholder="{{ Start_model.year}}-{{ Start_model.month}}-{{ Start_model.day}}"
+                                     name="dp" [(ngModel)]="Start_model" ngbDatepicker #start="ngbDatepicker" >
+                              <button class="input-group-addon" (click)="start.toggle()" type="button">
+                                  <i class="fa fa-calendar"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                        <br>
+                        <!-- <pre>Model: {{ Start_model | json }}</pre> -->
+                        <small><b>Selected Start date: </b>{{ Start_model.year}}-{{ Start_model.month}}-{{ Start_model.day}}</small>
+              </div>
+
+              <div class="form-group col-md-6">
+                        <ngb-timepicker [(ngModel)]="Start_time" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+                        <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
+                            Meridian - {{meridian ? "ON" : "OFF"}}
+                        </button> -->
+                        <!-- <pre>Selected time: {{Start_time | json}}</pre> -->
+                        <small><b>Selected Start time: </b>{{ Start_time.hour}} : {{ Start_time.minute}}</small>
+              </div>
+                
+
+              <div class="form-group col-md-6">
+                      <h5>Ends:</h5>
+                        <form class="form-inline">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <input class="form-control" placeholder="{{ End_model.year}}-{{ End_model.month}}-{{ End_model.day}}"
+                                       name="dp" [(ngModel)]="End_model" ngbDatepicker #ends="ngbDatepicker">
+                                <button class="input-group-addon" (click)="ends.toggle()" type="button">
+                                  <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+                                  <i class="fa fa-calendar"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                          <br>
+                          <!-- <pre>Model: {{ End_model | json }}</pre> -->
+                          <small><b>Selected End date: </b>{{ End_model.year}}-{{ End_model.month}}-{{ End_model.day}}</small>
+              </div>
+
+              <div class="form-group col-md-6">
+                          <ngb-timepicker [(ngModel)]="End_time" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+                          <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
+                              Meridian - {{meridian ? "ON" : "OFF"}}
+                          </button> -->
+                          <!-- <pre>Selected time: {{End_time | json}}</pre> -->
+                          <small><b>Selected End time: </b>{{ End_time.hour}} : {{ End_time.minute}}</small>
+              </div>
+              <br><br>
+              <h5>Description:</h5>
+                    <!-- <label for="exampleFormControlTextarea1">Description</label> -->
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{eventInfo.eventDescription}}" 
+                    [(ngModel)]="eventInfo.eventDescription" name="description" >
+                        {{eventInfo.Description}}
+                    </textarea>
+
+          </div>
+            <br><br>
+              <!-- end of form row div -->
+              <button type="submit" name="submit" 
+              (click)="updateEventInfo( eventInfo.eventTitle , eventInfo.eventPostcode, eventInfo.eventDescription,  eventInfo.eventStreet)" 
+              class="btn btn-primary btn-lg">Submit Changes</button>
+    </form>
+    <br><br>
+  </ng-template>
+</ngb-tab>
+
+
+<ngb-tab>
+  <ng-template ngbTabTitle><b>Event Schedule</b> </ng-template>
+  <ng-template ngbTabContent>
+    <br>
+    <edit-subevents  (actionMessage)="editedAction($event)" ></edit-subevents>
+  </ng-template>
+</ngb-tab>
+
+
+<ngb-tab>
+    <ng-template ngbTabTitle><b>Event Program</b> </ng-template>
+    <ng-template ngbTabContent>
+      <br>
+      <h1>Event Files</h1>
+
+      <br>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingTwo">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+             Manage Event Files
+            </a>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            
+              <ngb-tabset>
+                  <ngb-tab>
+                      <ng-template ngbTabTitle><b>Files List</b></ng-template>
+                      <ng-template ngbTabContent>
+                        <br>
+                        <eventfiles></eventfiles>  
+                      </ng-template>
+                    </ngb-tab>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle><b>Upload a New File</b></ng-template>
+                    <ng-template ngbTabContent>
+                      <br>
+                      <upload-files></upload-files>   
+                    </ng-template>
+                  </ngb-tab>
+                 
+                </ngb-tabset>
+
+              <!-- <eventfiles></eventfiles>  
+              <hr>
+              <upload-files></upload-files>    -->
+
+          </div>
+        </div>
+      </div>
+      <br>
+  
+
+   
+      <div class="card">
+        <div class="card-header" role="tab" id="headingFour">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Manage Event Videos
+            </a>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
+          <div class="card-body">
+             
+
+
+              <ngb-tabset #t="ngbTabset">
+                  <ngb-tab id="tab-selectbyid2">
+                      <ng-template ngbTabTitle><b>Videos added List</b></ng-template>
+                      <ng-template ngbTabContent>
+                        <br>
+
+                        <div *ngFor="let a of videolist">
+  
+                            <div class="card" >
+                                <div class="card-body">
+                                  <h5 class="card-title">Video Id: {{a.string}}</h5>
+                                  <iframe  [src]="getEmbedUrl(a)" frameborder="0" 
+                                  gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                                </div>
+                                <div class="card-footer text-muted">
+                                   <button type="button" class="btn btn-danger btn-sm"> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                  </div>
+                              </div>
+                              <br>
+                          
+                          </div>
+                      </ng-template>
+                    </ngb-tab>
+
+                  <ngb-tab >
+                    <ng-template ngbTabTitle><b>Add a New Video</b></ng-template>
+                    <ng-template ngbTabContent>
+                    <br>
+                        <form>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Video Url</label>
+                              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" #url>
+                              <small id="emailHelp" class="form-text text-muted">Full Url must be provided.</small>
+                            </div>
+                            <!-- <button   (click)="findAddress(postcode.value)"  (click)="t.select('tab-selectbyid2')"  class="btn btn-primary">Submit</button> -->
+                            <button   (click)="videopath(url.value) ; t.select('tab-selectbyid2')"   class="btn btn-primary">Submit</button>
+                          </form>
+
+                    </ng-template>
+                  </ngb-tab>
+                 
+                </ngb-tabset>
+
+
+
+          </div>
+        </div>
+      </div>
+      
+<br><br><br>
+        
+    </ng-template>
+  </ngb-tab>
+
+
+<!-- end -->
+</ngb-tabset>
+
+
+</div>
+</div>

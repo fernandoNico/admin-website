@@ -1,0 +1,14 @@
+
+<div id="wrapper">
+  
+    <div *ngFor="let upload of uploads | async">
+      <br>
+      <files-detail [upload]='upload'></files-detail>
+    </div>
+    
+    <!-- <loading-spinner *ngIf="showSpinner"></loading-spinner> -->
+    
+    <hr>
+    
+    <!-- <upload-form></upload-form> -->
+    </div>

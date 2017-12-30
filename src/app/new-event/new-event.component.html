@@ -1,0 +1,121 @@
+<div  class="container-fluid text-center">
+  <form id="wrapper">
+      <br>
+      <h1>Create an Event</h1>
+      <br>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <h5>Event Title:</h5>
+            <!-- <label for="inputEmail4" class="col-form-label">Event Title</label> -->
+            <input type="text" class="form-control" name="username"   id="inputEmail4" placeholder="Enter Event/Conference title" #title>
+        </div>
+
+        <div class="form-group col-md-6">
+            <h5>Location:</h5>
+            <label for="inputEmail4" class="col-form-label">Postcode</label>
+            <input type="text" class="form-control" name="username"   id="inputEmail4" placeholder="Enter Postcode" #postcode required >
+            <br>
+        </div>
+        
+        <div class="form-group col-md-12" *ngIf="AddressList">
+              <label for="exampleFormControlSelect1">Select Address</label>
+              <select class="form-control" id="exampleFormControlSelect1" (change)="onChange($event)">
+                  <option *ngFor="let address of AddressList.addresses" [value]="address">{{address}}</option>
+                </select>
+        </div>
+
+        <div class="form-group col-md-12">
+            <button type="submit" name="submit"  (click)="findAddress(postcode.value)" class="btn btn-primary "><i class="fa fa-search" aria-hidden="true"></i> Find Address</button>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="form-group col-md-12" *ngIf="AddressList">
+            <div class="card">
+                  <div class="card-body">
+                      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                        </agm-map>
+                  </div>
+            </div>
+        </div>
+
+        <div class="w-100"></div>
+          <div class="form-group col-md-6">
+            <h5>Starts:</h5>
+              <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="model"
+                            name="dp" [(ngModel)]="model" ngbDatepicker #start="ngbDatepicker">
+                      <button class="input-group-addon" (click)="start.toggle()" type="button">
+                        <i class="fa fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <!-- <pre>Model: {{ model | json }}</pre> -->
+          </div>
+
+        <div class="form-group col-md-6">
+              <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+              <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
+                  Meridian - {{meridian ? "ON" : "OFF"}}
+              </button> -->
+              <!-- <pre>Selected time: {{time | json}}</pre> -->
+        </div>
+
+
+
+
+
+        <div class="form-group col-md-6">
+            <h5>Ends:</h5>
+              <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="model_ends"
+                             name="dp" [(ngModel)]="model_ends" ngbDatepicker #ends="ngbDatepicker">
+                      <button class="input-group-addon" (click)="ends.toggle()" type="button">
+                        <i class="fa fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+                <!-- <pre>Model: {{ model_ends | json }}</pre> -->
+          </div>
+
+          <div class="form-group col-md-6">
+                <ngb-timepicker [(ngModel)]="time_ends" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+                <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
+                    Meridian - {{meridian ? "ON" : "OFF"}}
+                </button> -->
+
+                <!-- <pre>Selected time: {{time_ends | json}}</pre> -->
+
+
+          </div>
+
+
+
+          <label for="exampleFormControlTextarea1">Description</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" #description></textarea>
+
+
+  </div>
+  <br><br>
+    <!-- end of form row div -->
+          <button type="submit" 
+          (click)="addEvent(title.value ,postcode.value ,description.value);" 
+          class="btn btn-primary btn-lg">Submit</button>
+  </form>
+
+  </div>
+
+
+  <br><br>
+
+
+
+

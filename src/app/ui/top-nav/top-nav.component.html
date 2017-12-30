@@ -1,0 +1,125 @@
+<!-- <nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item logo" routerLink="/">
+      <img src="assets/images/angularfirebase.png" width="30px" alt="Firestarter Angular4 Demo App"/> MyEvents
+    </a>
+  </div> -->
+
+  <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+  <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+  <!-- <span class="nav-toggle" (click)="toggleCollapse()" [ngClass]="{'is-active': show}">
+    <span></span>
+    <span></span>
+    <span></span>
+  </span> -->
+
+  <!-- This "nav-menu" is hidden on mobile -->
+  <!-- Add the modifier "is-active" to display it on mobile -->
+  <!-- <div class="nav-right nav-menu" [ngClass]="{'is-active': show}">
+    <a class="nav-item" routerLink="/login">
+      Login
+    </a>
+    <a class="nav-item" routerLink="/notes">
+      Sign Up
+    </a> -->
+    <!-- <a class="nav-item" routerLink="/items">
+      Realtime DB
+    </a>
+    <a class="nav-item" routerLink="/uploads">
+      File Uploads
+    </a> -->
+    
+  <!-- </div>
+
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">
+    <!-- <img src="/assets/eventlogo.png" width="30" height="30" class="d-inline-block align-top" alt=""> -->
+    {{title}}
+  </a>
+  <!-- <a class="navbar-brand" href="#">{{title}}</a> -->
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+      <li class="nav-item active" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['']"><i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['events-list']"> <i class="fa fa-list-alt" aria-hidden="true"></i> Current Events</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['help']"> <i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
+      </li>
+      <!-- <li class="nav-item active" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['login']" > Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['notes']" >Sign Up</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['items']" >Realtime DB</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['uploads']" > File Uploads</a>
+    </li> -->
+  
+    </ul>
+    <div  *ngIf="!auth.currentUser">
+        <form class="form-inline my-2 my-lg-2">
+          <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+          <a class="btn btn-success mr-sm-2  "  [routerLink]="['login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+          <a class="btn btn-info my-2 my-sm-0 "  [routerLink]="['signup']" ><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+        </form>
+    </div>
+    <div  *ngIf="auth.currentUser">
+        <form class="form-inline my-2 my-lg-2">
+
+            <div class="btn-group mr-sm-2" role="group" aria-label="Button group with nested dropdown">
+                <button type="button" class="btn btn-secondary">Welcome <b>{{ auth.currentUserDisplayName }}</b></button>
+              
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-user-o" aria-hidden="true"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" [routerLink]="['user-profile']">My profile</a>
+                    <a class="dropdown-item" [routerLink]="['/']">Contact us</a>
+                  </div>
+                </div>
+              </div>
+          <!-- <p class=" my-2 my-sm-0 " >Welcome <b>{{ auth.currentUserDisplayName }}</b></p> -->
+          <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+          <!-- <a class="btn btn-success mr-sm-2  "  [routerLink]="['login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a> -->
+          <button type="button"  class="btn btn-danger my-2 my-sm-0 "(click)="logout()" ><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+        </form>
+    </div>
+
+
+
+
+
+
+  </div>
+</nav>
+
+
+<!-- <div class="box" *ngIf="auth.currentUser">
+    <h3>Howdy, {{ auth.currentUserDisplayName }}</h3>
+    <img class="card-img-top" [src]="auth.currentUser.photoURL || 'https://api.adorable.io/avatars/109/fire.png'" width=50px>
+    <p class="text-truncate">UID: {{ auth.currentUserId }}</p>
+    <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+
+</div>
+
+
+<div class="box" *ngIf="!auth.currentUser">
+    <h3>Howdy, {{ auth.currentUserDisplayName }}</h3>
+    <p class="card-text">Login to get started...</p>
+    <button type="button" class="btn btn-primary" routerLink="/login">Login</button>
+
+</div> -->
