@@ -4,8 +4,8 @@
     <div class="card-body">
       <h5 class="card-title">{{upload.name}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">Edit file</h6>
-      <button  class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
-        <button  class="btn btn-danger"  (click)='deleteUpload()'> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+      <a  class="btn btn-primary" [href]="upload.url"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
+      <button  class="btn btn-danger"  (click)='deleteUpload()'> <i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
     </div>
   </div>
   <br>
