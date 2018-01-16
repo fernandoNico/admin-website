@@ -197,26 +197,31 @@
               <div class="col-sm-4">
                                         <h5>Events Scheduled </h5>
                                         <br>
-                                        <div class="card" *ngFor="let subEvent of innerEvents  " >
-                                            <div class="card-body">
-                                                <h4 class="card-title" >{{subEvent.innerEventTitle}} </h4>
-                                                <p>{{subEvent.innerEventDescription}}</p>
-                                                <h5> Start</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">
-                                                  {{subEvent.innerEventStartDate | date:'medium' }}
-                                                </h6>
-                                                <h5> End</h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">
-                                                {{subEvent.innerEventEndDate| date:'medium' }}
-                                                  </h6>
-                                                  <button  class="btn btn-warning btn-sm"(click)="editinnerEvent(subEvent)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                                                    <button  class="btn btn-danger btn-sm"(click)="deleteinnerEvent(subEvent)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                      
+                                        <div *ngFor="let subEvent of innerEvents">
+                                            <div class="card"  >
+                                                <div class="card-body">
+                                                    <h4 class="card-title" >{{subEvent.innerEventTitle}} </h4>
+                                                    <p>{{subEvent.innerEventDescription}}</p>
+                                                    <h5> Start</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                      {{subEvent.innerEventStartDate | date:'medium' }}
+                                                    </h6>
+                                                    <h5> End</h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    {{subEvent.innerEventEndDate| date:'medium' }}
+                                                      </h6>
+                                                      <button  class="btn btn-warning btn-sm"(click)="editinnerEvent(subEvent)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                                                        <button  class="btn btn-danger btn-sm"(click)="deleteinnerEvent(subEvent)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
 
-                                               
-                                              </div>
+                                                  
+                                                  </div>
+                                            </div>
+                                          <br>
+                                            
                                           </div>
                                           <br>
-                                          <br>
+                                          
 
                 </div>
     </div>

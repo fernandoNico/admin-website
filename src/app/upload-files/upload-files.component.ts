@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UploadFilesComponent implements OnInit  {
 
-myid:number;
+  myid:number;
   ngOnInit() {
  this.myid = this.activatedRoute.snapshot.params['id'];
 

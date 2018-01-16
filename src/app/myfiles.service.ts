@@ -13,7 +13,6 @@ export class MyfilesService {
 
   constructor(private db: AngularFireDatabase ) { }
 
-// id="187";
   getUploads(id: string) {
     
     this.uploads = this.db.list(this.basePath, ref=> ref.orderByChild('id').equalTo(id)).snapshotChanges().map((actions) => {
