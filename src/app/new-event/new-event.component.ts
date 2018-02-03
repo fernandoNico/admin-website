@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import { Event } from '../ui/events-page/event.model';
+import { Eventos } from '../ui/events-page/event.model';
 import { Router } from '@angular/router';
 import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from 'app/event.service';
+import { MyfilesService } from 'app/myfiles.service';
+import { Item } from 'app/items/shared/item';
+import { UploadFile } from 'app/eventfiles/file';
+import { NotificationService } from 'app/notification.service';
+
 
 const now = new Date();
 
@@ -14,6 +19,9 @@ const now = new Date();
   styleUrls: ['./new-event.component.scss']
 })
 export class NewEventComponent implements OnInit {
+
+  item: Item = new Item();
+  
   AddressList: any;
   statusMessage: string;
 
@@ -30,7 +38,7 @@ export class NewEventComponent implements OnInit {
   lng :number ;
   zoom: number = 15;
 
-  newEvent : Event;
+  newEvent : Eventos;
 
   time = {hour: 13, minute: 30, second:30};
   time_ends = {hour: 12, minute: 20 , second:30};
@@ -46,7 +54,17 @@ export class NewEventComponent implements OnInit {
   datetimeStart: string;
   datetimeEnd: string;
 
-  constructor(private eventService: EventService, private router: Router, private ngbDateParserFormatter: NgbDateParserFormatter) { }
+  constructor(private eventService: EventService, 
+              private router: Router, 
+              private itemSvc: MyfilesService,
+              private ngbDateParserFormatter: NgbDateParserFormatter, private notify: NotificationService ) {
+                this.notify.clear();
+              }
+
+
+              
+
+
   ngOnInit() {
     this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
     this.model_ends = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
@@ -114,12 +132,18 @@ export class NewEventComponent implements OnInit {
     console.log(this.datetimeStart );
     console.log(this.datetimeEnd);
 
-    this.newEvent =  new Event(title, this.datetimeStart, this.datetimeEnd, postcode, description, this.street);
+    this.newEvent =  new Eventos(title, this.datetimeStart, this.datetimeEnd, postcode, description, this.street);
     console.log(this.newEvent);
     this.eventService.addEvent(this.newEvent)
     .subscribe((response)=>{
+      console.log(response.EventId);
     console.log(response);
       if (response) {
+        
+          this.item.id = String(response.EventId);
+          this.item.imageurl = "https://cdn.pixabay.com/photo/2017/07/21/23/57/concert-2527495_960_720.jpg";
+          this.itemSvc.createItem(this.item);
+          this.item = new Item(); // reset item
         this.router.navigate(['event', response.EventId,'added']);
         }
     });

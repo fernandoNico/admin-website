@@ -17,7 +17,7 @@ import { EditEventComponent } from 'app/edit-event/edit-event.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'create', component: NewEventComponent },
+  { path: 'create', component: NewEventComponent, canActivate: [AuthGuard]},
   { path: 'login', component: UserLoginComponent },
   { path: 'signup', component: UserLoginComponent },
   { path: 'events-list', component: EventsPageComponent },

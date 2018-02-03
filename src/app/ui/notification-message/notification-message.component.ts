@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { NotifyService } from '../../core/notify.service';
 
 @Component({
-  selector: 'notification-message',
+  selector: 'notification-msg',
   templateUrl: './notification-message.component.html',
   styleUrls: ['./notification-message.component.scss'],
   encapsulation: ViewEncapsulation.None,

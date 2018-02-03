@@ -1,19 +1,7 @@
 
 <div  class="container-fluid text-center">
   <div id="wrapper" >
-
-        <ngb-alert class="text-center" *ngIf="!staticAlertClosed" type="info" (close)="staticAlertClosed = true">Event created Sucessfully!</ngb-alert>
-        <ngb-alert class="text-center" *ngIf="!staticAlertClosed1" type="success" (close)="staticAlertClosed1 = true">Event Edited Sucessfully!</ngb-alert>
-
-        <ngb-alert class="text-center" *ngIf="!NewsubEvent" type="info" (close)="NewsubEvent = true">SubEvent created Sucessfully!</ngb-alert>
-        <ngb-alert class="text-center" *ngIf="!EditsubEvent" type="success" (close)="EditsubEvent = true">SubEvent Edited Sucessfully!</ngb-alert>
-        <ngb-alert class="text-center" *ngIf="!DeletesubEvent" type="danger" (close)="DeletesubEvent = true">SubEvent Deleted Sucessfully!</ngb-alert>
-    <h1>Event Management</h1>
-    <br>
-
-
 <ngb-tabset >
-
 <!-- Event Details Tab *****************************************************************************************************-->
 <ngb-tab>
   <ng-template ngbTabTitle><b>Event Details</b> </ng-template>
@@ -136,7 +124,7 @@
               <!-- end of form row div -->
               <button type="submit" name="submit" 
               (click)="updateEventInfo( eventInfo.eventTitle , eventInfo.eventPostcode, eventInfo.eventDescription,  eventInfo.eventStreet)" 
-              class="btn btn-primary btn-lg">Submit Changes</button>
+              class="btn btn-primary btn-lg">Submit</button>
     </form>
     <br><br>
   </ng-template>
@@ -156,49 +144,57 @@
     <ng-template ngbTabTitle><b>Event Program</b> </ng-template>
     <ng-template ngbTabContent>
       <br>
-      <h2>Event Files</h2>
-
-      <br>
       <div class="card">
-        <div class="card-header" role="tab" id="headingTwo">
-          <h5 class="mb-0">
-            <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-             Manage Event Files
-            </a>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-          <div class="card-body">
-            
-              <ngb-tabset>
-                  <ngb-tab>
-                      <ng-template ngbTabTitle><b>Files List</b></ng-template>
-                      <ng-template ngbTabContent>
-                        <br>
-                        <eventfiles></eventfiles>  
-                      </ng-template>
-                    </ngb-tab>
-                  <ngb-tab>
-                    <ng-template ngbTabTitle><b>Upload a New File</b></ng-template>
-                    <ng-template ngbTabContent>
-                      <br>
-                      <upload-files></upload-files>   
-                    </ng-template>
-                  </ngb-tab>
-                 
+            <div class="card-header" role="tab" id="headingTwo">
+              <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Manage Event Content 
+                </a>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">
+                  <ngb-tabset>
+                      <ngb-tab>
+                          <ng-template ngbTabTitle><b>Event Image</b></ng-template>
+                          <ng-template ngbTabContent>
+                            <br>
+                            <div class="text-left">
+                              <h2 >Image</h2><br>
+
+                              <div *ngFor="let img of eventuploads | async">
+                                  <!-- <h1 >{{img.id}}</h1> -->
+                                  <img class="card-img-top" [src]="img.imageurl || 'https://api.adorable.io/avatars/109/fire.png'" >
+                                  <br><br>
+                                  <p class="font-weight-light">Change Profile Picture</p> 
+                                  <input type="file"  (change)="detectFiles($event)" name="file"><br><br> 
+                                  <button  [disabled]="!selectedFiles"  class="btn btn-primary btn-sm text-center"(click)="uploadSingle(img.$key)">Update</button>  
+                              </div>
+                              
+                            </div><br>
+                          </ng-template>
+                      </ngb-tab>
+
+                      <ngb-tab>
+                          <ng-template ngbTabTitle><b>Files List</b></ng-template>
+                          <ng-template ngbTabContent>
+                            <br>
+                            <eventfiles></eventfiles>  
+                          </ng-template>
+                      </ngb-tab>
+                      <ngb-tab>
+                        <ng-template ngbTabTitle><b>Upload a New File</b></ng-template>
+                        <ng-template ngbTabContent>
+                          <br>
+                          <upload-files></upload-files>   
+                        </ng-template>
+                      </ngb-tab>   
                 </ngb-tabset>
-
-              <!-- <eventfiles></eventfiles>  
-              <hr>
-              <upload-files></upload-files>    -->
-
+              </div>
           </div>
-        </div>
       </div>
       <br>
-  
 
-   
       <div class="card">
         <div class="card-header" role="tab" id="headingFour">
           <h5 class="mb-0">
@@ -209,17 +205,12 @@
         </div>
         <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
           <div class="card-body">
-             
-
-
               <ngb-tabset #t="ngbTabset">
                   <ngb-tab id="tab-selectbyid2">
                       <ng-template ngbTabTitle><b>Videos added List</b></ng-template>
                       <ng-template ngbTabContent>
                         <br>
-
                         <div *ngFor="let a of videolist">
-  
                             <div class="card" >
                                 <div class="card-body">
                                   <h5 class="card-title">Video Id: {{a.string}}</h5>

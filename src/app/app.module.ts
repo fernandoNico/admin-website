@@ -42,6 +42,8 @@ import { FilesDetailComponent } from './files-detail/files-detail.component';
 import { MyfilesService } from 'app/myfiles.service';
 import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { EventVideosComponent } from './event-videos/event-videos.component';
+import { NotificationMessageComponent } from './notification-message/notification-message.component';
+import { NotificationService } from 'app/notification.service';
 
 
 @NgModule({
@@ -56,6 +58,7 @@ import { EventVideosComponent } from './event-videos/event-videos.component';
     FilesDetailComponent,
     UploadFilesComponent,
     EventVideosComponent,
+    NotificationMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,7 @@ import { EventVideosComponent } from './event-videos/event-videos.component';
       apiKey: 'AIzaSyCA20_4EESP91_VCovXIqtbMWrRjWnuD8g'
     })
   ],
-  providers: [EventService, MyfilesService],
+  providers: [EventService, MyfilesService, NotificationService],
   bootstrap: [
     AppComponent,
   ],

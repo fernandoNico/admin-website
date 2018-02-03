@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, HttpModule, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable  } from 'rxjs/Observable';
-import { Event } from '../app/ui/events-page/event.model';
+import { Eventos } from '../app/ui/events-page/event.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/Observable/throw';
@@ -15,7 +15,7 @@ import { SubEvent } from 'app/edit-subevents/SubEvent.model';
 @Injectable()
 export class EventService {
 
-  apiKey = 'OQMi5v8uiECOE_y_RIyHOg11426';
+  apiKey = 'kH6Iob66dkqdMFQThCczyQ12057';
   url = 'http://localhost:56647/api/Events';
   options: RequestOptions;
  
@@ -24,7 +24,7 @@ export class EventService {
 
   getSubEvents(id: number){
   return this.http.get('http://localhost:56647/api/SubEvents/'+ id + '/events')
-  .map((response: Response) => <Event>response.json()).catch(this.handleError);
+  .map((response: Response) => <Eventos>response.json()).catch(this.handleError);
   }
 
   getEvents() {
@@ -32,9 +32,9 @@ export class EventService {
     .map((res: Response) => res.json()).catch(this.handleError);
   }
 
-  getEventById(id: number): Observable<Event> {
+  getEventById(id: number): Observable<Eventos> {
     return this.http.get('http://localhost:56647/api/Events/' + id )
-    .map((response: Response) => <Event>response.json()).catch(this.handleError);
+    .map((response: Response) => <Eventos>response.json()).catch(this.handleError);
   }
 
   getEventPostcode(postcode: string) {
@@ -44,7 +44,7 @@ export class EventService {
 
 
 
-addEvent(event:Event){
+addEvent(event:Eventos){
     let endpoint = this.url;
     let body = JSON.stringify(event);
     let headers = new Headers({'Content-Type':'application/json'});
@@ -57,7 +57,7 @@ addEvent(event:Event){
 
 
 
-updateEvent(event:Event, id:number){
+updateEvent(event:Eventos, id:number){
   let endpoint = `${this.url}/${id}`;
   //let endpoint = this.url + event.EventId;
   console.log(endpoint);

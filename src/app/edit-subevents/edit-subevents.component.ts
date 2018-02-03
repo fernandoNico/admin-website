@@ -3,6 +3,7 @@ import { SubEvent } from "./SubEvent.model";
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from 'app/event.service';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationService } from 'app/notification.service';
 const now = new Date();
 
 @Component({
@@ -24,8 +25,10 @@ export class EditSubeventsComponent implements OnInit {
 
   constructor( private eventService: EventService,
      private activatedRoute: ActivatedRoute,
-     private ngbDateParserFormatter: NgbDateParserFormatter) {
-
+     private ngbDateParserFormatter: NgbDateParserFormatter,
+     private notify: NotificationService ) {
+  
+      this.notify.clear();
       this.getSuvEvents();
       }
 
@@ -133,26 +136,19 @@ export class EditSubeventsComponent implements OnInit {
       subEventTimeEnd= {hour: 12, minute: 31, second: 30};
       
       addSubEvent(title: string , eventDescription: string) {
-        
-      
-        
           this.subEventDateTimeStart = this.ngbDateParserFormatter.format(this.subEventModelStart) +" "+ this.subEventTimeStart.hour +":"+  this.subEventTimeStart.minute+":"+ this.subEventTimeStart.second;
           this.subEventDateTimeEnd = this.ngbDateParserFormatter.format(this.subEventModelEnd)  +" "+ this.subEventTimeEnd.hour +":"+  this.subEventTimeEnd.minute+":"+ this.subEventTimeEnd.second;
-      
           console.log(title );
           console.log(eventDescription);
           console.log(this.subEventDateTimeStart );
           console.log(this.subEventDateTimeEnd);
-      
-      
           this.subeventToUpdate =  new  SubEvent(title, this.subEventDateTimeStart, this.subEventDateTimeEnd, 
-            eventDescription,this.parentEventID);
+                                                eventDescription,this.parentEventID);
           console.log(this.subeventToUpdate);
           this.eventService.addSubEvents(this.subeventToUpdate).subscribe((response)=>{
             console.log(response);
-
-            // this.getSuvEvents();
             this.innerEvents.unshift(response);
+            this.notify.update('SubEvent Created Successfully', 'success');
             this.actionMessage.emit(this.addedsubEvent);
             // console.log('s');
             console.log(this.innerEvents);
@@ -162,18 +158,7 @@ export class EditSubeventsComponent implements OnInit {
           });
       
       
-      
-        //   console.log(this.eventToUpdateId);
-      
-        //   this.eventService.updateEvent(this.eventToUpdate, this.llave)
-        //   .subscribe((response)=>{
-        //       console.log(response);
-        //       // this.router.navigate(['event/', title,'edited']);
-        //            this.staticAlertClosed1 = false;
-        //     setTimeout(() => this.staticAlertClosed1 = true, 8000);
-        //       });
-        // }
-      
+  
       
          
         }
@@ -202,7 +187,7 @@ export class EditSubeventsComponent implements OnInit {
 
             let itemIndex = this.innerEvents.findIndex(item => item.innerEventID == response.innerEventID);
             this.innerEvents[itemIndex] = response;
-
+            this.notify.update('SubEvent Changes Updated Successfully', 'info');
             this.actionMessage.emit(this.editededsubEvent);
 
 
@@ -240,6 +225,7 @@ export class EditSubeventsComponent implements OnInit {
         let indexToDelete = this.innerEvents.indexOf(innerevents);
         if (indexToDelete !== -1) {
           this.innerEvents.splice(indexToDelete, 1);
+          this.notify.update('SubEvent Deleted Successfully', 'danger');
         }
         this.actionMessage.emit(this.deletedsubEvent);
 

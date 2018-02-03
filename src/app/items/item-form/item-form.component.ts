@@ -15,6 +15,7 @@ export class ItemFormComponent {
   item: Item = new Item();
 
   constructor(private itemSvc: ItemService) { }
+
   createItem() {
     this.itemSvc.createItem(this.item);
     this.item = new Item(); // reset item

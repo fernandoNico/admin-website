@@ -1,7 +1,13 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { Event } from './event.model';
+import { Eventos } from './event.model';
 import { Http, Response} from '@angular/http';
 import { EventService } from 'app/event.service';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map'
+import { Observable } from 'rxjs/Observable';
+import { MyfilesService } from 'app/myfiles.service';
+import { NotificationService } from 'app/notification.service';
+
 
 @Component({
   selector: 'events-page',
@@ -9,22 +15,32 @@ import { EventService } from 'app/event.service';
   styleUrls: ['./events-page.component.scss'],
 })
 export class EventsPageComponent implements OnInit {
-  events: Event[];
-  selectedEvent: Event;
+  events: Eventos[];
+  selectedEvent: Eventos;
+
+  eventsImages: Observable<any[]>;
 
   toDeleteId:number;
 
-  constructor(private eventService: EventService) { }
-
-  ngOnInit() {
-    this.eventService.getEvents().subscribe(events => this.events = events);
+  constructor(private eventService: EventService, private upSvc: MyfilesService, private notify: NotificationService) { 
+    this.notify.clear();
   }
 
-  onselectedEvent(event: Event) {
+  ngOnInit() {
+
+    this.eventsImages = this.upSvc.getEventsImages();
+
+    this.eventService.getEvents().subscribe(events => this.events = events);
+  }
+val(num: any){
+  return(num)
+}
+
+  onselectedEvent(event: Eventos) {
   this.selectedEvent =  event;
   }
 
-  deleteEvent(event: Event){
+  deleteEvent(event: Eventos){
     this.toDeleteId = event.EventId;
     
     this.eventService.deleteEvent(this.toDeleteId).subscribe(
@@ -33,6 +49,7 @@ export class EventsPageComponent implements OnInit {
     let indexToDelete = this.events.indexOf(event);
       if (indexToDelete !== -1) {
         this.events.splice(indexToDelete, 1);
+        this.notify.update('Event Deleted Successfully', 'danger');
       }
     
     console.log(this.toDeleteId);

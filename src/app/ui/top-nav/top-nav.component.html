@@ -37,7 +37,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" [routerLink]="['']">
     <!-- <img src="/assets/eventlogo.png" width="30" height="30" class="d-inline-block align-top" alt=""> -->
     {{title}}
   </a>
@@ -45,16 +45,15 @@
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-
-      <li class="nav-item active" [routerLinkActive]="['active']">
-        <a class="nav-link" [routerLink]="['']"><i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
-      </li>
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['events-list']"> <i class="fa fa-list-alt" aria-hidden="true"></i> Current Events</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="['help']"> <i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
+      <li *ngIf="auth.currentUser" class="nav-item" [routerLinkActive]="['']">
+          <a class="nav-link" [routerLink]="['create']"> <i class="fa fa-plus" aria-hidden="true"></i> New Event</a>
       </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['help']"> <i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
+    </li>
       <!-- <li class="nav-item active" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['login']" > Login <span class="sr-only">(current)</span></a>
       </li>
@@ -80,10 +79,10 @@
         <form class="form-inline my-2 my-lg-2">
 
             <div class="btn-group mr-sm-2" role="group" aria-label="Button group with nested dropdown">
-                <button type="button" class="btn btn-secondary">Welcome <b>{{ auth.currentUserDisplayName }}</b></button>
+                <button type="button" class="btn btn btn-outline-light font-weight-light">Welcome <b>{{ auth.currentUserDisplayName }}</b></button>
               
                 <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button id="btnGroupDrop1" type="button" class="btn btn btn-outline-light font-weight-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fa fa-user-o" aria-hidden="true"></i>
                   </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -95,7 +94,7 @@
           <!-- <p class=" my-2 my-sm-0 " >Welcome <b>{{ auth.currentUserDisplayName }}</b></p> -->
           <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
           <!-- <a class="btn btn-success mr-sm-2  "  [routerLink]="['login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a> -->
-          <button type="button"  class="btn btn-danger my-2 my-sm-0 "(click)="logout()" ><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+          <button type="button"  class="btn btn-outline-light my-2 my-sm-0 "(click)="logout()" ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
         </form>
     </div>
 

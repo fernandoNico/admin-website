@@ -8,6 +8,7 @@
   {{ msg.content }}
 </div> -->
 
-
 <ngb-alert *ngIf="notify.msg | async as msg" 
-[type]="msg.style" (close)="closeAlert(alert)">{{  msg.content }}</ngb-alert>
+[type]="msg.style" (close)="notify.clear()" >
+<h3 class="text-center">{{  msg.content }}</h3>
+</ngb-alert>

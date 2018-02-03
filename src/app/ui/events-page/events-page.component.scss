@@ -1,10 +1,17 @@
 h1{
-    color:  #f6682F;
+    color:  white;
  }
- h4,h5,h6{
+ h2,h3,h4,h5,h6{
    color: black;
  }
  hr{
      border-color: white;
  }
  
+ .form-control{
+    border-radius: 0px;
+}
+
+.btn{
+    border-radius: 0px;
+}
