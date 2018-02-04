@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/Observable/throw';
 import 'rxjs/add/operator/toPromise';
 import { SubEvent } from 'app/edit-subevents/SubEvent.model';
+import { Console } from '@angular/core/src/console';
 
 
 // import { SubEvent } from './edit-event/edit-inner-events/SubEvent.model';
@@ -62,6 +63,8 @@ updateEvent(event:Eventos, id:number){
   //let endpoint = this.url + event.EventId;
   console.log(endpoint);
   let body = JSON.stringify(event);
+  console.log("body");
+  console.log(body);
   let headers = new Headers({'Content-Type':'application/json'});
   let options = new RequestOptions({headers: headers});
   return this.http.put(endpoint, body, options)

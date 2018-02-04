@@ -120,6 +120,10 @@ export class EditEventComponent implements OnInit {
   vales(q: string) : Number{  
     return Number(q);
   }
+  
+  sleep (time : any) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
 
   uploadSingle(key : any) {
     const file = this.selectedFiles;
@@ -127,6 +131,10 @@ export class EditEventComponent implements OnInit {
     if (file && file.length === 1) {
       this.currentUpload = new UploadFile(file.item(0));
       this.upSvc.updateEventImage(this.currentUpload, key);
+     this.sleep(4000).then(() => {
+      this.notify.update('Event Image Updated Successfully', 'info');
+      })
+     
     
     } else {
       console.error('No file found!');
@@ -186,8 +194,11 @@ export class EditEventComponent implements OnInit {
   updateEventInfo(title: string, postcode: string,description: string, street: string){
         this.datetimeStart = this.ngbDateParserFormatter.format(this.Start_model) +" "+ this.Start_time.hour +":"+  this.Start_time.minute+":"+ this.Start_time.second;
         this.datetimeEnd = this.ngbDateParserFormatter.format(this.End_model)  +" "+ this.End_time.hour +":"+  this.End_time.minute+":"+ this.End_time.second;
+
         this.eventToUpdate =  new Eventos(title,this.datetimeStart,this.datetimeEnd, postcode, description, street);
         console.log(this.eventToUpdate);
+        console.log("above");
+
         this.eventService.updateEvent(this.eventToUpdate, this.EventId)
         .subscribe((response)=>{
             console.log(response);

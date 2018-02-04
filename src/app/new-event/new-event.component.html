@@ -39,7 +39,7 @@
         </div>
 
         <div class="w-100"></div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
             <h5>Starts:</h5>
               <form class="form-inline">
                   <div class="form-group">
@@ -55,7 +55,7 @@
                 <!-- <pre>Model: {{ model | json }}</pre> -->
           </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
               <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
               <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
                   Meridian - {{meridian ? "ON" : "OFF"}}
@@ -64,10 +64,10 @@
         </div>
 
 
+        <div class="w-100"></div>
 
 
-
-        <div class="form-group col-md-6">
+        <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
             <h5>Ends:</h5>
               <form class="form-inline">
                   <div class="form-group">
@@ -84,7 +84,7 @@
                 <!-- <pre>Model: {{ model_ends | json }}</pre> -->
           </div>
 
-          <div class="form-group col-md-6">
+          <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
                 <ngb-timepicker [(ngModel)]="time_ends" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
                 <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
                     Meridian - {{meridian ? "ON" : "OFF"}}
@@ -95,14 +95,14 @@
 
           </div>
 
-
+          <div class="w-100"></div>
 
           <label for="exampleFormControlTextarea1">Description</label>
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" #description></textarea>
 
 
   </div>
-  <br><br>
+  <br>
     <!-- end of form row div -->
           <button type="submit" 
           (click)="addEvent(title.value ,postcode.value ,description.value);" 

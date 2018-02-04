@@ -114,15 +114,6 @@ export class NewEventComponent implements OnInit {
   
   addEvent(title : string ,postcode : string ,description :  string ){
    
-    // if(this.time.hour < 10){this.hourAmStart = " 0"; } 
-  //   if(this.time.minute == 0){this.hourAmStart = "10";
-  //   console.log(this.time.minute);
-  // } 
-
-    // if(this.time_ends.hour < 10){this.hourAmEnd = " 0"; }
-    // if(this.time_ends.minute ==0){this.hourAmEnd = "10";
-    // console.log(this.time_ends.minute); }
-
     this.datetimeStart = this.ngbDateParserFormatter.format(this.model) +" "+ this.time.hour +":"+  this.time.minute+":"+ this.time.second;
     this.datetimeEnd = this.ngbDateParserFormatter.format(this.model_ends) +" "+ this.time_ends.hour +":"+  this.time_ends.minute+":"+ this.time_ends.second;
 
@@ -131,6 +122,13 @@ export class NewEventComponent implements OnInit {
 
     console.log(this.datetimeStart );
     console.log(this.datetimeEnd);
+
+    let  myString = this.street;
+    let splits = myString.split(',', );
+    console.log(splits)
+        
+    this.street = splits[0];
+        // this.eventCity = splits[5];
 
     this.newEvent =  new Eventos(title, this.datetimeStart, this.datetimeEnd, postcode, description, this.street);
     console.log(this.newEvent);

@@ -36,8 +36,6 @@
                       <br>
               </div>
 
-                
-
               <div class="form-group col-md-12">
                       <button type="submit" name="submit"  (click)="findnewAddress(eventInfo.eventPostcode)" class="btn btn-primary "><i class="fa fa-search" aria-hidden="true"></i> Find New Address</button>
               </div>
@@ -54,9 +52,9 @@
                           </div>
               </div>
 
-              <div class="w-100"></div><br>
+              <div class="w-100"></div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
                     <h5>Starts:</h5>
                       <form class="form-inline">
                           <div class="form-group">
@@ -74,7 +72,7 @@
                         <small><b>Selected Start date: </b>{{ Start_model.year}}-{{ Start_model.month}}-{{ Start_model.day}}</small>
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
                         <ngb-timepicker [(ngModel)]="Start_time" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
                         <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
                             Meridian - {{meridian ? "ON" : "OFF"}}
@@ -83,8 +81,8 @@
                         <small><b>Selected Start time: </b>{{ Start_time.hour}} : {{ Start_time.minute}}</small>
               </div>
                 
-
-              <div class="form-group col-md-6">
+              <div class="w-100"></div><br>
+              <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
                       <h5>Ends:</h5>
                         <form class="form-inline">
                             <div class="form-group">
@@ -103,7 +101,7 @@
                           <small><b>Selected End date: </b>{{ End_model.year}}-{{ End_model.month}}-{{ End_model.day}}</small>
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-sm-6 col-md-4 col-lg-3 mt-4">
                           <ngb-timepicker [(ngModel)]="End_time" [meridian]="meridian" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
                           <!-- <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
                               Meridian - {{meridian ? "ON" : "OFF"}}
@@ -111,7 +109,8 @@
                           <!-- <pre>Selected time: {{End_time | json}}</pre> -->
                           <small><b>Selected End time: </b>{{ End_time.hour}} : {{ End_time.minute}}</small>
               </div>
-              <br><br>
+              <div class="w-100"></div><br>
+              
               <h5>Description:</h5>
                     <!-- <label for="exampleFormControlTextarea1">Description</label> -->
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{eventInfo.eventDescription}}" 
@@ -120,7 +119,7 @@
                     </textarea>
 
           </div>
-            <br><br>
+            <br>
               <!-- end of form row div -->
               <button type="submit" name="submit" 
               (click)="updateEventInfo( eventInfo.eventTitle , eventInfo.eventPostcode, eventInfo.eventDescription,  eventInfo.eventStreet)" 
